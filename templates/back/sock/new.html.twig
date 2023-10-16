@@ -1,0 +1,28 @@
+{% extends 'back.base.html.twig' %}
+{% block menu_bo_socks %}active-back{% endblock %}
+{% block title %}BackOffice - New Sock{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show section-bo">
+    <h1 class="bo-title">Create new Sock</h1>
+
+    <div class="container p-4">
+    <div class="row mb-2 fs-6">
+        <div class="col">
+            {{ form_start(form, {'attr' : {'novalidate': 'novalidate'} }) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.brand) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.picture) }}
+            {{ form_row(form.category) }}
+            <button class="table-btn">Add the new sock</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    </div>
+    <br>
+    <a class="table-btn" href="{{ path('app_sock_index') }}">Back to list</a>
+    </section>
+</main>
+{% endblock %}

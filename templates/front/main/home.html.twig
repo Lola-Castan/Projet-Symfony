@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NiceSocks.com - Accueil{% endblock %}
+
+{% block menu_home %}active{% endblock %}
+
+{% block body %}
+
+<main>
+    <section>
+    <br>
+    <div class="intro">
+        <h2>Step up your style game with trendy socks for every occasion !</h2><br>
+        <h3>Check out our different categories !</h3>
+    </div>
+
+    <div id="container-home">
+    {% for category in categories %}
+        <div class="container-category">  
+        <a href="{{ path('category_show', {id: category.id}) }}">                    
+            <img src="{{ category.picture }}" class="container-category-img" alt="{{ category.name }}">              
+            <div class="overlay-text"><a class="homelink" href="#">{{ category.name }}</a></div>        
+        </a> 
+        </div>
+    {% endfor %}
+    </div>
+    </section>
+</main>
+
+{% endblock %}

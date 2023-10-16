@@ -1,0 +1,135 @@
+{% extends 'back.base.html.twig' %}
+
+{% block menu_bo_index %}active-back{% endblock %}
+
+{% block title %}Backoffice - NiceSocks.com{% endblock %}
+
+{% block body %}
+
+<main>
+    <section class="section-show section-bo">
+
+    {# SOCKS' TABLE #}
+    <table>
+        <thead>
+            <tr>
+            <th colspan="8">Socks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Name</th>
+            <th colspan="1" class="table-subtitle">Brand</th>
+            <th colspan="1" class="table-subtitle">Categories</th>
+            <th colspan="1" class="table-subtitle">Price</th>
+            <th colspan="1" class="table-subtitle">Picture</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            {% for sock in socks %}
+            <tr>   
+            <td>{{ sock.id }}</td>
+            <td><a href="{{ path('app_sock_show', {id: sock.id}) }}">{{ sock.name }}</a></td>
+            <td>{{ sock.brand.name }}</td>
+            <td>
+                {% for category in sock.category %}
+                    {{ category.name }}
+                    <br>
+                {% endfor %}
+            </td>
+            <td>{{ sock.price }} €</td>
+            <td><img src="{{ sock.picture }}" alt="{{ sock.name }}"></td>
+            <td><a href="{{ path('app_sock_edit', {id: sock.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_sock_delete', {id: sock.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-sock-' ~ sock.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+            <th colspan="8"><a href="{{ path("app_sock_new") }}">Add a sock</a></th>
+            </tr>
+        </tfoot>
+    </table>
+
+    {# BRANDS' TABLE #}
+    <table>
+        <thead>
+            <tr>
+            <th colspan="4">Brands</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Name</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            {% for brand in brands %}
+            <tr>   
+            <td>{{ brand.id }}</td>
+            <td><a href="{{ path('app_brand_show', {id: brand.id}) }}">{{ brand.name }}</a></td>
+            <td><a href="{{ path('app_brand_edit', {id: brand.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_brand_delete', {id: brand.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-brand-' ~ brand.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+            <th colspan="5"><a href="{{ path("app_brand_new") }}">Add a brand</a></th>
+            </tr>
+        </tfoot>
+    </table>
+
+    {# CATEGORIES' TABLE #}
+    <table>
+        <thead>
+            <tr>
+            <th class="table-title" colspan="5">Categories</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Name</th>
+            <th colspan="1" class="table-subtitle">Picture</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            {% for category in categories %}
+            <tr>   
+            <td>{{ category.id }}</td>
+            <td><a href="{{ path('app_category_show', {id: category.id}) }}">{{ category.name }}</a></td>
+            <td><img src="{{ category.picture }}" alt="{{ category.name }}"></td>
+            <td><a href="{{ path('app_category_edit', {id: category.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_category_delete', {id: category.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-category-' ~ category.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+            <th colspan="5"><a href="{{ path("app_category_new") }}">Add a category</a></th>
+            </tr>
+        </tfoot>
+    </table>
+
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'back.base.html.twig' %}
+{% block menu_bo_brands %}active-back{% endblock %}
+{% block title %}BackOffice - {{ brand.name }}{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show section-bo">
+
+    {# BRANDS' TABLE #}
+    <table>
+        <thead>
+            <tr>
+            <th colspan="4">Brands</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Name</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            <tr>   
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.name }}</td>
+            <td><a href="{{ path('app_brand_edit', {id: brand.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_brand_delete', {id: brand.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-brand-' ~ brand.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+        </tbody>
+    </table>
+    <a class="table-btn" href="{{ path('app_brand_index') }}">Back to list</a>
+    </section>
+</main>
+
+{% endblock %}

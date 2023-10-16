@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block menu_brands %}active{% endblock %}
+
+{% block title %}Brands list{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show">
+
+        <h2 class ="title-title" >• All brands •</h2>
+
+    {% for brand in brands %}
+    <div class="container-show">
+        <div class="test">
+            <h3>{{ brand.name }}</h3>
+        </div>
+        <a href="{{ path('brand_show', {id: brand.id}) }}">
+            <i class="bi bi-arrow-right-square"></i>
+        </a>
+    </div>
+    {% endfor %}
+
+    </section>
+</main>
+{% endblock %}
+
+

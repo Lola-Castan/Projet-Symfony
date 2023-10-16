@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block menu_home %}active{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+<main>
+    <section>
+    <div class="intro">
+        <h2>Hello, {{app.user.email}} !</h2>
+    </div>
+    </section>
+</main>
+
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'back.base.html.twig' %}
+{% block menu_bo_categories %}active-back{% endblock %}
+{% block title %}BackOffice - {{ category.name }}{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show section-bo">
+    {# CATEGORIES' TABLE #}
+    <table>
+        <thead>
+            <tr>
+            <th class="table-title" colspan="5">Categories</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Name</th>
+            <th colspan="1" class="table-subtitle">Picture</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            <tr>   
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td><img src="{{ category.picture }}" alt="{{ category.name }}"></td>
+            <td><a href="{{ path('app_category_edit', {id: category.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_category_delete', {id: category.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-category-' ~ category.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+            <th colspan="5"><a href="{{ path("app_category_new") }}">Add a category</a></th>
+            </tr>
+        </tfoot>
+    </table>
+    </section>
+</main>
+{% endblock %}

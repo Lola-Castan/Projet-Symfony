@@ -1,0 +1,49 @@
+{% extends 'back.base.html.twig' %}
+{% block menu_bo_socks %}active-back{% endblock %}
+{% block title %}BackOffice - {{ sock.name }}{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show section-bo">
+    {# SOCK'S TABLE #}
+        <table>
+        <thead>
+            <tr>
+            <th colspan="7">{{ sock.name }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th colspan="1" class="table-subtitle">ID</th>
+            <th colspan="1" class="table-subtitle">Brand</th>
+            <th colspan="1" class="table-subtitle">Categories</th>
+            <th colspan="1" class="table-subtitle">Price</th>
+            <th colspan="1" class="table-subtitle">Picture</th>
+            <th colspan="1" class="table-subtitle">Edit</th>
+            <th colspan="1" class="table-subtitle">Delete</th>
+            </tr>
+            <tr>   
+            <td>{{ sock.id }}</td>
+            <td>{{ sock.brand.name }}</td>
+            <td>
+                {% for category in sock.category %}
+                    {{ category.name }}
+                    <br>
+                {% endfor %}
+            </td>
+            <td>{{ sock.price }} €</td>
+            <td><img src="{{ sock.picture }}" alt="{{ sock.name }}"></td>
+            <td><a href="{{ path('app_sock_edit', {id: sock.id}) }}">Edit</a></td>
+            <td>
+                <form method="post" action="{{ path('app_sock_delete', {id: sock.id}) }}" onsubmit="return confirm('Confirm delete');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-sock-' ~ sock.id) }}">
+                <button class="table-btn btn btn-danger">Delete</button>
+                </form>
+            </td>      
+            </tr>
+        </tbody>
+    </table>
+    <a class="table-btn" href="{{ path('app_sock_index') }}">Back to list</a>
+    </section>
+</main>
+{% endblock %}

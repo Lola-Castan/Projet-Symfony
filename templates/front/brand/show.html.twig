@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ brand.name }} - NiceSocks.com{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-show">
+
+        <h2 class ="title-title" >• {{ brand.name }} •</h2>
+
+    {% for sock in socks %}
+    <div class="container-show">
+        <img class="img-show" src="{{ sock.picture }}" alt="{{ sock.name }}">
+        <div class="test">
+            <h3>{{ sock.name }}</h3>
+            <p>Brand : {{ sock.brand.name }}</p>
+        </div>
+        
+        <p>{{ sock.price }} €</p>
+        
+        <a href="{{ path('socks_show', {id: sock.id}) }}">
+            <i class="bi bi-arrow-right-square"></i>
+        </a>
+    </div>
+    {% endfor %}
+
+    </section>
+</main>
+
+{% endblock %}
